@@ -52,8 +52,8 @@
 			},
 			{
 				"name": "hxcpp",
-				"link": "https://github.com/HaxeFoundation/hxcpp",
-				"branch": "8268ef2d518b1e7c8e8494114d0bdf6b5bc4147d"
+				"link": "https://github.com/MaysLastPlays-Stuff/hxcpp-h",
+				"branch": "master"
 			},
 			{
 				"name": "hscript",
