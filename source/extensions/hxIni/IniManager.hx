@@ -1,7 +1,8 @@
 package extensions.hxIni;
 
-// import extensions.hxIni.IniManager.Ini;
+#if desktop
 import sys.io.File;
+#end
 import funkin.FunkinAssets;
 
 import Lambda;
@@ -103,6 +104,7 @@ class IniManager
     return ini;
   }
 
+  #if desktop
   /**
    * Transform the ini object to an string and writes it to a file.
    * @param ini Ini object to write to file.
@@ -113,6 +115,7 @@ class IniManager
     file.writeString(toString(ini));
     file.close();
   }
+  #end
 
   /**
    * Transform the ini object to an string.

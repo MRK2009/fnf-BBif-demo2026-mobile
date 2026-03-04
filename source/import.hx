@@ -1,6 +1,7 @@
 #if !macro
 // Discord API
 import funkin.backend.DiscordClient;
+import funkin.utils.CacheUtil;
 
 #if sys
 import sys.*;

@@ -3515,6 +3515,7 @@ class PlayState extends MusicBeatState
 		funkin.backend.NoteTypesConfig.clearNoteTypesData();
 		instance = null;
 		super.destroy();
+        CacheUtil.clean();
 	}
 	
 	public static function cancelMusicFadeTween()

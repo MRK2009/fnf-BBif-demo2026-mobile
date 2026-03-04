@@ -287,5 +287,7 @@ class MusicBeatState extends FlxUIState
 		removeVirtualPad();
 		removeMobileControls();
 		#end
+
+        CacheUtil.clean();
 	}
 }

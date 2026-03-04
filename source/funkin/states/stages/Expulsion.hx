@@ -40,6 +40,8 @@ class Expulsion extends BaseStage
 		Asset3DLibrary.enableParser(AWDParser);
 		
 		Asset3DLibrary.addEventListener(Asset3DEvent.ASSET_COMPLETE, onAssetComplete);
+        
+        CacheUtil.clean();
 		loaderToken = Asset3DLibrary.load(new URLRequest("assets/models/BaldiRoom.awd"));
 		
 		loaderToken.addEventListener(LoaderEvent.RESOURCE_COMPLETE, onLoadComplete);
