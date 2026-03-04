@@ -44,7 +44,9 @@ import funkin.scripting.*;
 import funkin.scripting.LuaUtils;
 import funkin.scripting.HScript;
 #end
+
 import openfl.utils.Assets;
+
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
 #end
@@ -441,18 +443,18 @@ class PlayState extends MusicBeatState
 		add(dadGroup);
 		add(boyfriendGroup);
 		
-        #if LUA_ALLOWED
+		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
 		luaDebugGroup.cameras = [camOther];
 		add(luaDebugGroup);
 		#end
-        
+		
 		// "GLOBAL" SCRIPTS
 		#if HSCRIPT_ALLOWED
-			for (file in Assets.list().filter(folder -> folder.contains('assets/scripts/')))
-			{
-				if (file.toLowerCase().endsWith('.hx')) initHScript(file);
-			}
+		for (file in Assets.list().filter(folder -> folder.contains('assets/scripts/')))
+		{
+			if (file.toLowerCase().endsWith('.hx')) initHScript(file);
+		}
 		#end
 		
 		// STAGE SCRIPTS
@@ -499,10 +501,10 @@ class PlayState extends MusicBeatState
 		
 		// SONG SPECIFIC SCRIPTS
 		#if HSCRIPT_ALLOWED
-			for (file in Assets.list().filter(folder -> folder.contains('assets/data/' + songName + '/')))
-			{
-				if (file.toLowerCase().endsWith('.hx')) initHScript(file);
-			}
+		for (file in Assets.list().filter(folder -> folder.contains('assets/data/' + songName + '/')))
+		{
+			if (file.toLowerCase().endsWith('.hx')) initHScript(file);
+		}
 		#end
 		comboGroup = new FlxSpriteGroup();
 		add(comboGroup);
@@ -617,8 +619,8 @@ class PlayState extends MusicBeatState
 		startingSong = true;
 		
 		#if mobile
-		 addMobileControls(false);
-	     hitbox.visible = false;
+		addMobileControls(false);
+		hitbox.visible = false;
 		#end
 		
 		#if HSCRIPT_ALLOWED
@@ -3515,7 +3517,7 @@ class PlayState extends MusicBeatState
 		funkin.backend.NoteTypesConfig.clearNoteTypesData();
 		instance = null;
 		super.destroy();
-        CacheUtil.clean();
+		CacheUtil.clean();
 	}
 	
 	public static function cancelMusicFadeTween()
@@ -3858,7 +3860,7 @@ class PlayState extends MusicBeatState
 	{
 		// if (!ClientPrefs.data.shaders) return new FlxRuntimeShader();
 		
-		#if (!flash && MODS_ALLOWED && sys)
+		#if (!flash && sys)
 		if (!runtimeShaders.exists(name) && !initLuaShader(name))
 		{
 			FlxG.log.warn('Shader $name is missing!');
@@ -3873,40 +3875,43 @@ class PlayState extends MusicBeatState
 		#end
 	}
 	
-	public function initLuaShader(name:String, ?glslVersion:Int = 120)
+	public function initLuaShader(name:String)
 	{
 		// if (!ClientPrefs.data.shaders) return false;
 		
-		#if (MODS_ALLOWED && !flash && sys)
+		#if (!flash && sys)
 		if (runtimeShaders.exists(name))
 		{
 			FlxG.log.warn('Shader $name was already initialized!');
 			return true;
 		}
 		
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'shaders/'))
+		var foldersToCheck:Array<String> = [Paths.getSharedPath('shaders/')];
+		for (folder in foldersToCheck)
 		{
-			var frag:String = folder + name + '.frag';
-			var vert:String = folder + name + '.vert';
-			var found:Bool = false;
-			if (FileSystem.exists(frag))
-			{
-				frag = File.getContent(frag);
-				found = true;
-			}
-			else frag = null;
+			var fragPath:String = folder + name + '.frag';
+			var vertPath:String = folder + name + '.vert';
 			
-			if (FileSystem.exists(vert))
+			var frag:String = null;
+			var vert:String = null;
+			var found:Bool = false;
+		
+			if (Assets.exists(fragPath))
 			{
-				vert = File.getContent(vert);
+				frag = Assets.getText(fragPath);
 				found = true;
 			}
-			else vert = null;
+			
+			if (Assets.exists(vertPath))
+			{
+				vert = Assets.getText(vertPath);
+				found = true;
+			}
 			
 			if (found)
 			{
 				runtimeShaders.set(name, [frag, vert]);
-				// trace('Found shader $name!');
+				trace('Shader $name Found!');
 				return true;
 			}
 		}

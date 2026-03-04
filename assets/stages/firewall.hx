@@ -603,6 +603,9 @@ function fakeFreeze(enabled:Bool)
 	if (enabled) FlxTween.tween(whiteOverlay, {alpha: 0.4}, 0.4);
 	else whiteOverlay.alpha = 0;
 	
+    #if windows
 	setWindowName();
+    #end
+    
 	if (enabled) FlxG.stage.window.title += " (Not Responding)";
 }
