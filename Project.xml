@@ -72,7 +72,6 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="flixel-addons"/>
 	<haxelib name="tjson" />
-	<haxelib name="hxIni" />
 	<haxelib name="away3d"/>
 
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>

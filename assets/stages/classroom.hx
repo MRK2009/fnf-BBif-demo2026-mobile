@@ -9,7 +9,7 @@ import flixel.sound.FlxSound;
 
 import funkin.utils.RandomUtil;
 
-import sys.FileSystem;
+import funkin.FunkinAssets;
 
 using StringTools;
 
@@ -37,8 +37,7 @@ function onCreate()
 	}
 	else
 	{
-		var chalkboards:Array<String> = FileSystem.readDirectory(Paths.getPath('images/stages/classroom/chalkboards'));
-		
+	    var chalkboards:Array<String> = FunkinAssets.readDirectory(Paths.getPath('images/stages/classroom/chalkboards'));		
 		pickedBoard = RandomUtil.getObject(chalkboards).split('.')[0];
 	}
 	

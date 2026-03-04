@@ -10,7 +10,7 @@ import debug.FPSCounter;
 
 import lime.app.Application;
 
-import hxIni.IniManager;
+import extensions.hxIni.IniManager;
 
 import funkin.backend.Highscore;
 import funkin.backend.StageData;
@@ -44,7 +44,7 @@ import funkin.scripting.*;
 import funkin.scripting.LuaUtils;
 import funkin.scripting.HScript;
 #end
-
+import openfl.utils.Assets;
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
 #end
@@ -371,7 +371,7 @@ class PlayState extends MusicBeatState
 		
 		GameOverSubstate.resetVariables();
 		
-		if (Paths.fileExists('data/${Paths.formatToSongPath(SONG.song)}/config.ini', TEXT)) configIni = hxIni.IniManager.loadFromFile(Paths.config("config.ini", SONG.song.toLowerCase()));
+		if (Paths.fileExists('data/${Paths.formatToSongPath(SONG.song)}/config.ini', TEXT)) configIni = extensions.hxIni.IniManager.loadFromFile(Paths.config("config.ini", SONG.song.toLowerCase()));
 		
 		songName = Paths.formatToSongPath(SONG.song);
 		
@@ -449,10 +449,9 @@ class PlayState extends MusicBeatState
         
 		// "GLOBAL" SCRIPTS
 		#if HSCRIPT_ALLOWED
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'scripts/'))
-			for (file in FileSystem.readDirectory(folder))
+			for (file in Assets.list().filter(folder -> folder.contains('assets/scripts/')))
 			{
-				if (file.toLowerCase().endsWith('.hx')) initHScript(folder + file);
+				if (file.toLowerCase().endsWith('.hx')) initHScript(file);
 			}
 		#end
 		
@@ -499,13 +498,12 @@ class PlayState extends MusicBeatState
 		}
 		
 		// SONG SPECIFIC SCRIPTS
-		
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'data/' + songName + '/'))
-			for (file in FileSystem.readDirectory(folder))
+		#if HSCRIPT_ALLOWED
+			for (file in Assets.list().filter(folder -> folder.contains('assets/data/' + songName + '/')))
 			{
-				if (file.toLowerCase().endsWith('.hx')) initHScript(folder + file);
+				if (file.toLowerCase().endsWith('.hx')) initHScript(file);
 			}
-			
+		#end
 		comboGroup = new FlxSpriteGroup();
 		add(comboGroup);
 		
@@ -865,7 +863,7 @@ class PlayState extends MusicBeatState
 		#end
 		{
 			scriptFile = Paths.getSharedPath(scriptFile);
-			if (FileSystem.exists(scriptFile)) doPush = true;
+			if (FunkinAssets.exists(scriptFile)) doPush = true;
 		}
 		
 		if (doPush)
@@ -3631,7 +3629,7 @@ class PlayState extends MusicBeatState
 		var scriptToLoad:String = Paths.getSharedPath(scriptFile);
 		#end
 		
-		if (FileSystem.exists(scriptToLoad))
+		if (FunkinAssets.exists(scriptToLoad))
 		{
 			if (Iris.instances.exists(scriptToLoad)) return false;
 			

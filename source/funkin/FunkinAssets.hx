@@ -110,7 +110,6 @@ class FunkinAssets
 		return Assets.list().filter(path -> return path != directory && path.startsWith(directory)).length != 0;
 		#end
 	}
-	
 	/**
 	 * retrieves a flxgraphic instance from key.
 	 * 

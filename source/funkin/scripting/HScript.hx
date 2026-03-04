@@ -99,7 +99,7 @@ class HScript extends IrisEx
 			var f:String = file.replace('\\', '/');
 			if (f.contains('/') && !f.contains('\n'))
 			{
-				scriptThing = File.getContent(f);
+				scriptThing = FunkinAssets.getContent(f);
 			}
 		}
 		this.scriptCode = scriptThing;
