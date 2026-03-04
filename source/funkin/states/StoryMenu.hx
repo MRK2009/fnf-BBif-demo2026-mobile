@@ -217,7 +217,9 @@ class StoryMenu extends MusicBeatUIState
 			FlxTransitionableState.skipNextTransIn = true;
 			loadIntoSong();
 		});
+        #if mobile
 		FlxTween.tween(virtualPad, {alpha: 0}, 0.6, {ease: FlxEase.expoIn});
+        #end
 		FlxTween.tween(FlxG.camera, {zoom: 3, "scroll.y": FlxG.camera.scroll.y + 50}, 0.6,
 			{
 				ease: FlxEase.expoIn,
