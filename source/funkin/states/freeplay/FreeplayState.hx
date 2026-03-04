@@ -156,8 +156,10 @@ class FreeplayState extends MusicBeatUIState
 		}
 		
 		#if mobile
-		addVirtualPad(NONE, B);
+		addVirtualPad(NONE, A_B);
 		addVirtualPadCamera();
+		virtualPad.buttonA.visible = false;
+		virtualPad.buttonB.x = FlxG.width - 132;
 		#end
 		
 		curDifficulty = FlxMath.maxInt(0, Difficulty.defaultList.indexOf(lastDifficulty));
@@ -215,6 +217,11 @@ class FreeplayState extends MusicBeatUIState
 	{
 		super.update(elapsed);
 		cameraMovement(elapsed);
+		
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
 		
 		if (FlxG.sound.music != null
 			&& selectedMusic == -1

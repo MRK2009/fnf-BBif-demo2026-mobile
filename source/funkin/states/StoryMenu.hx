@@ -120,6 +120,10 @@ class StoryMenu extends MusicBeatUIState
 	
 	override function update(elapsed:Float)
 	{
+	    #if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
 		if (FlxG.sound.music != null && FlxG.sound.music.volume > 0) FlxG.sound.music.volume -= 0.125 * elapsed;
 		if (canSelect)
 		{
