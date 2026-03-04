@@ -154,8 +154,8 @@ class PauseSubState extends MusicBeatSubstate
 		super.update(elapsed);
 		
 		#if mobile
-		if (controls.isInSubstate)
-            controls.isInSubstate = false;
+		if (!controls.isInSubstate)
+            controls.isInSubstate = true;
         #end
 		
 		if (controls.BACK)

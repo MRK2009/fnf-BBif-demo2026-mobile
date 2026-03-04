@@ -38,6 +38,11 @@ class LessonPopUp extends MusicBeatSubstate
 			spr.updateHitbox();
 		}
 		
+		#if mobile
+		if (!controls.isInSubstate)
+            controls.isInSubstate = true;
+        #end
+		
 		bg = new FlxBGSprite();
 		bg.color = FlxColor.BLACK;
 		bg.alpha = 0.6;
@@ -73,11 +78,16 @@ class LessonPopUp extends MusicBeatSubstate
 		ruler.offset2.y = FlxG.height;
 		
 		FlxG.sound.play(Paths.sound('freeplay/ruler ok'));
-		
+   	
 		FlxTween.tween(bg, {alpha: 0.6}, 0.7);
 		FlxTween.tween(ruler, {angle: 0, 'offset2.y': 0}, 0.7, {ease: FlxEase.cubeOut, framerate: 24});
 		
 		FlxTween.tween(glow, {alpha: 1}, 0.2, {startDelay: 0.6, framerate: 24});
+		@:privateAccess
+		FlxTween.tween((cast FlxG.state : FreeplayState).virtualPad.buttonB, {x: FlxG.width - 258}, 0.2, {startDelay: 0.6, framerate: 24});
+		virtualPad.buttonA.visible = true;
+		@:privateAccess
+		FlxTween.tween((cast FlxG.state : FreeplayState).virtualPad.buttonA, {alpha: 0.5}, 0.2, {startDelay: 0.6, framerate: 24});
 		
 		FlxTween.tween(goodMix, {alpha: 1}, 0.3, {startDelay: 0.6, framerate: 24});
 		FlxTween.tween(badMix, {alpha: 1}, 0.3, {startDelay: 0.6, framerate: 24});
@@ -92,6 +102,10 @@ class LessonPopUp extends MusicBeatSubstate
 		FlxTween.tween(glow, {alpha: 0}, 0.2, {framerate: 24});
 		FlxTween.tween(goodMix, {alpha: 0}, 0.3, {framerate: 24});
 		FlxTween.tween(badMix, {alpha: 0}, 0.3, {framerate: 24});
+		
+		@:privateAccess
+		FlxTween.tween((cast FlxG.state : FreeplayState).virtualPad.buttonB, {x: FlxG.width - 132}, 0.2, {startDelay: 0.6, framerate: 24});
+		FlxTween.tween((cast FlxG.state : FreeplayState).virtualPad.buttonA, {alpha: 0}, 0.2, {startDelay: 0.6, framerate: 24, onComplete: Void -> { virtualPad.buttonA.visible = false; }});
 		
 		FlxTween.tween(ruler, {angle: -360, 'offset2.y': FlxG.height}, 0.7, {ease: FlxEase.cubeIn, framerate: 24});
 		

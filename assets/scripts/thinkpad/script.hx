@@ -268,11 +268,24 @@ function moveThinkpad(appear)
 		thinkPad.revive();
 		atlasCover.revive();
 		
+		FlxTween.tween(hitbox, {alpha: 0}, time * 2,
+		{
+			ease: ease,
+			onComplete: Void -> {
+				hitbox.visible = false;
+			}
+		});
+		
 		FlxTween.tween(thinkCam.scroll, {y: 0}, time * 2, {ease: ease});
 		FlxTween.tween(thinkCam, {alpha: 1}, time * 2, {ease: ease});
 	}
 	else
 	{
+	    hitbox.visible = true;
+	    FlxTween.tween(hitbox, {alpha: 0.00001}, time * 2,
+		{
+			ease: ease
+		});
 		FlxTween.tween(thinkCam.scroll, {y: -FlxG.height}, time * 2, {ease: ease});
 		FlxTween.tween(thinkCam, {alpha: 0}, time * 2,
 			{
