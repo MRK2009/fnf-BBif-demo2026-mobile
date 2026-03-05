@@ -123,6 +123,11 @@ class OptionsState extends MusicBeatState
 		mult.blend = MULTIPLY;
 		mult.screenCenter();
 		
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPadCamera();
+		#end
+		
 		ClientPrefs.saveSettings();
 		
 		openDoor();
@@ -173,6 +178,10 @@ class OptionsState extends MusicBeatState
 			grpOptions.visible = underline.visible = canSelect = false;
 		}
 		
+		#if mobile
+		removeVirtualPad();
+		#end
+		
 		super.openSubState(subState);
 	}
 	
@@ -181,6 +190,12 @@ class OptionsState extends MusicBeatState
 		if (subState is BaseOptionsMenu || subState is ControlsSubState) grpOptions.visible = underline.visible = canSelect = true;
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		
+		#if mobile
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+			addVirtualPad(UP_DOWN, A_B);
+		});
+		#end
 	}
 	
 	override function update(elapsed:Float)
@@ -189,7 +204,8 @@ class OptionsState extends MusicBeatState
 		
 		if (canSelect)
 		{
-			if (FlxG.mouse.overlaps(grpOptions))
+		    #if desktop
+            if (FlxG.mouse.overlaps(grpOptions))
 			{
 				for (idx => obj in grpOptions)
 				{
@@ -205,15 +221,16 @@ class OptionsState extends MusicBeatState
 					}
 				}
 			}
+			#end
 			
-			if (FlxG.mouse.wheel != 0) changeSel(-FlxG.mouse.wheel);
+			#if desktop if (FlxG.mouse.wheel != 0) changeSel(-FlxG.mouse.wheel); #end
 			
 			if (controls.UI_UP_P || controls.UI_DOWN_P)
 			{
 				changeSel(controls.UI_UP_P ? -1 : 1);
 			}
 			
-			if (controls.BACK || FlxG.mouse.justPressedRight)
+			if (controls.BACK #if desktop || FlxG.mouse.justPressedRight #end)
 			{
 				canSelect = false;
 				FlxG.sound.play(Paths.sound('cancelMenu'));

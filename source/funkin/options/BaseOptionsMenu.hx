@@ -116,8 +116,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		addBehind(underline);
 		
         #if mobile
-		addVirtualPad(LEFT_FULL, A_B);
-		addVirtualPadCamera();
+		addVirtualPad(LEFT_FULL, A_B_C);
         #end
 		
 		changeSelection();
@@ -170,16 +169,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			return;
 		}
 		
-		if (controls.UI_UP_P || FlxG.mouse.wheel == 1)
+		if (controls.UI_UP_P #if desktop || FlxG.mouse.wheel == 1 #end)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P || FlxG.mouse.wheel == -1)
+		if (controls.UI_DOWN_P #if desktop || FlxG.mouse.wheel == -1 #end)
 		{
 			changeSelection(1);
 		}
 		
-		if (controls.BACK #if (desktop) || FlxG.mouse.justPressedRight #end)
+		if (controls.BACK #if desktop || FlxG.mouse.justPressedRight #end)
 		{
 			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -189,7 +188,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		{
 			if (curOption.type == 'bool')
 			{
-				if (controls.ACCEPT #if (desktop) || FlxG.mouse.justPressed #end)
+				if (controls.ACCEPT #if desktop || FlxG.mouse.justPressed #end)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -201,7 +200,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			{
 				if (curOption.type == 'keybind')
 				{
-					if (controls.ACCEPT #if (desktop) || FlxG.mouse.justPressed #end)
+					if (controls.ACCEPT #if desktop || FlxG.mouse.justPressed #end)
 					{
 						bindingBlack = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 						bindingBlack.scale.set(FlxG.width, FlxG.height);
@@ -224,7 +223,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 					}
 				}
-				else if (controls.UI_LEFT || controls.UI_RIGHT || FlxG.mouse.pressed)
+				else if (controls.UI_LEFT || controls.UI_RIGHT #if desktop || FlxG.mouse.pressed #end)
 				{
 					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if desktop || FlxG.mouse.pressed #end);
 					if (holdTime > 0.5 || pressed)
@@ -234,14 +233,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							var add:Dynamic = null;
 							if (curOption.type != 'string')
 							{
-								if (FlxG.mouse.pressed)
+								#if desktop if (FlxG.mouse.pressed)
 								{
 									if (FlxG.mouse.deltaY != 0) add = (FlxG.mouse.deltaY >= 1) ? -curOption.changeValue : curOption.changeValue;
 								}
 								else
 								{
+								#end
 									add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
-								}
+								#if desktop } #end
 							}
 							
 							switch (curOption.type)
@@ -276,7 +276,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							}
 							updateTextFrom(curOption);
 							curOption.change();
-							if (!FlxG.mouse.pressed) FlxG.sound.play(Paths.sound('scrollMenu'));
+							#if desktop if (!FlxG.mouse.pressed) FlxG.sound.play(Paths.sound('scrollMenu')); #end
 						}
 						else if (curOption.type != 'string')
 						{
@@ -306,7 +306,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 			
-			if (controls.RESET)
+			if (controls.RESET #if mobile || virtualPad.buttonC.justPressed #end)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				if (leOption.type != 'keybind')
