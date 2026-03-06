@@ -153,6 +153,11 @@ class NoteOffsetState extends MusicBeatState
 		controllerPointer.cameras = [camHUD];
 		add(controllerPointer);
 		
+		#if mobile
+		addVirtualPad(LEFT_RIGHT, A_B_C);
+		addVirtualPadCamera();
+		#end
+		
 		updateMode();
 		_lastControllerMode = true;
 		
@@ -334,7 +339,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 			
-			if (controls.RESET)
+			if (controls.RESET || virtualPad.buttonC.justPressed)
 			{
 				for (i in 0...ClientPrefs.data.comboOffset.length)
 				{
@@ -372,7 +377,7 @@ class NoteOffsetState extends MusicBeatState
 				updateNoteDelay();
 			}
 			
-			if (controls.RESET)
+			if (controls.RESET || virtualPad.buttonC.justPressed)
 			{
 				holdTime = 0;
 				barPercent = 0;

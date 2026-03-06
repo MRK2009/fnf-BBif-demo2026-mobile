@@ -99,6 +99,11 @@ class ControlsSubState extends MusicBeatSubstate
 		text.updateHitbox();
 		add(text);
 		
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B);
+		addVirtualPadCamera();
+		#end
+		
 		createTexts();
 	}
 	
@@ -271,30 +276,30 @@ class ControlsSubState extends MusicBeatSubstate
 		
 		if (!binding)
 		{
-			if (FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B))
+			if (FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(B) #if mobile || virtualPad.buttonB.justPressed #end)
 			{
 				close();
 				return;
 			}
 			if (FlxG.keys.justPressed.CONTROL
 				|| FlxG.gamepads.anyJustPressed(LEFT_SHOULDER)
-				|| FlxG.gamepads.anyJustPressed(RIGHT_SHOULDER)) swapMode();
+				|| FlxG.gamepads.anyJustPressed(RIGHT_SHOULDER) #if mobile || virtualPad.buttonC.justPressed #end) swapMode();
 				
 			if (FlxG.keys.justPressed.LEFT
 				|| FlxG.keys.justPressed.RIGHT
 				|| FlxG.gamepads.anyJustPressed(DPAD_LEFT)
 				|| FlxG.gamepads.anyJustPressed(DPAD_RIGHT)
 				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_LEFT)
-				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_RIGHT)) updateAlt(true);
+				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_RIGHT) #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) updateAlt(true);
 				
 			if (FlxG.keys.justPressed.UP
 				|| FlxG.gamepads.anyJustPressed(DPAD_UP)
-				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_UP)) updateText(-1);
+				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_UP) #if mobile || virtualPad.buttonUp.justPressed #end) updateText(-1);
 			else if (FlxG.keys.justPressed.DOWN
 				|| FlxG.gamepads.anyJustPressed(DPAD_DOWN)
-				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_DOWN)) updateText(1);
+				|| FlxG.gamepads.anyJustPressed(LEFT_STICK_DIGITAL_DOWN) #if mobile || virtualPad.buttonDown.justPressed #end) updateText(1);
 				
-			if (FlxG.keys.justPressed.ENTER || FlxG.gamepads.anyJustPressed(START) || FlxG.gamepads.anyJustPressed(A))
+			if (FlxG.keys.justPressed.ENTER || FlxG.gamepads.anyJustPressed(START) || FlxG.gamepads.anyJustPressed(A) #if mobile || virtualPad.buttonA.justPressed #end)
 			{
 				if (options[curOptions[curSelected]][1] != defaultKey)
 				{

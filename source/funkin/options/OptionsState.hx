@@ -187,12 +187,13 @@ class OptionsState extends MusicBeatState
 	
 	override function closeSubState()
 	{
-		if (subState is BaseOptionsMenu || subState is ControlsSubState) grpOptions.visible = underline.visible = canSelect = true;
+		if (subState is BaseOptionsMenu || subState is ControlsSubState) grpOptions.visible = underline.visible = true;
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		
 		#if mobile
 		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+		    canSelect = true;
 			addVirtualPad(UP_DOWN, A_B);
 		});
 		#end
