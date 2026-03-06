@@ -203,6 +203,11 @@ class OptionsState extends MusicBeatState
 	{
 		super.update(elapsed);
 		
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
+		
 		if (canSelect)
 		{
 		    #if desktop
