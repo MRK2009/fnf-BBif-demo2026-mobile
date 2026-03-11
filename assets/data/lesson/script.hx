@@ -32,7 +32,6 @@ import funkin.utils.RandomUtil;
 import flixel.FlxSprite;
 
 var bfAtlas:FlxAnimate;
-var baldiAtlas:FlxAnimate;
 
 function onCreate()
 {
@@ -40,18 +39,16 @@ function onCreate()
 	
 	initScript('scripts/thinkpad/script.hx');
 	
-	bfAtlas = getVar('thinkpad_spawnBf');
-	
-	baldiAtlas = getVar('thinkpad_baldiAtlas');
+	bfAtlas = getVar('thinkpad_spawnBf')();
 	
 	bfAtlas.visible = false;
 }
 
 function onCreatePost()
 {
-	baldiAtlas.atlas.anim.onFinish.removeAll();
+	getVar('thinkpad_baldiAtlas').atlas.anim.onFinish.removeAll();
 	
-	baldiAtlas.atlas.anim.onFinish.add((anim) -> baldiAtlas.playAnim('idle-mad'));
+	getVar('thinkpad_baldiAtlas').atlas.anim.onFinish.add((anim) -> getVar('thinkpad_baldiAtlas').playAnim('idle-mad'));
 	
 	if (PlayState.isStoryMode)
 	{
@@ -101,9 +98,9 @@ function onEvent(ev, v1, v2, time)
 			{
 				case "makeAngry":
 					getVar('setBaldiAnim')('-mad');
-					baldiAtlas.playAnim('failed');
-					baldiAtlas.atlas.anim.onFinish.removeAll();
-					baldiAtlas.visible = true;
+					getVar('thinkpad_baldiAtlas').playAnim('failed');
+					getVar('thinkpad_baldiAtlas').atlas.anim.onFinish.removeAll();
+					getVar('thinkpad_baldiAtlas').visible = true;
 					bfAtlas.visible = false;
 				case 'fakeCheckMath':
 					getVar('thinkpad_mathResolver').input = -10;

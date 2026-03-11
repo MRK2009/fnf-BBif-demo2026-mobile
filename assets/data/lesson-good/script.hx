@@ -1,3 +1,5 @@
+package assets.data.lesson-good;
+
 import animate.FlxAnimate;
 
 import funkin.utils.RandomUtil;
