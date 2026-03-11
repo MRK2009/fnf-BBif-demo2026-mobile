@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.FlxCamera;
 import openfl.utils.Assets;
+import flixel.graphics.FlxGraphic;
 
 #if mobile
 import flixel.input.touch.FlxTouch;
@@ -15,7 +16,7 @@ import flixel.input.touch.FlxTouch;
  * 
  * Improved by: StarNova (Cream.BR)
  */
- 
+
 class PauseButton
 {
     private static var instance:PauseButton;
@@ -37,7 +38,7 @@ class PauseButton
         #if mobile
         var manager = getInstance();
         
-        manager.pauseButton = new FlxSprite().loadGraphic(Assets.getPath("assets/mobile/pauseButton.png"));
+        manager.pauseButton = new FlxSprite().loadGraphic(FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/pauseButton.png')));
         manager.pauseButton.antialiasing = true;
         manager.pauseButton.scrollFactor.set();
         manager.pauseButton.alpha = 0.7;
