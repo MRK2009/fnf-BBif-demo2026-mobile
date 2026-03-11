@@ -39,7 +39,7 @@ function onCreate()
 	
 	initScript('scripts/thinkpad/script.hx');
 	
-	bfAtlas = getVar('thinkpad_spawnBf')();
+	bfAtlas = getVar('thinkpad_spawnBf');
 	
 	bfAtlas.visible = false;
 }
