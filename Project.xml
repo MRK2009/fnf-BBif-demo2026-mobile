@@ -162,6 +162,13 @@
 		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
 		<certificate path="key.keystore" password="psychport" alias="psychport" alias-password="psychport" unless="test" />
     </section>
+
+	<config:android>
+        <gradle-properties>
+            <org.gradle.jvmargs>-Xmx8192m -XX:MaxMetaspaceSize=2048m -Dfile.encoding=UTF-8</org.gradle.jvmargs>
+        </gradle-properties>
+    </config:android>
+
 	
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
