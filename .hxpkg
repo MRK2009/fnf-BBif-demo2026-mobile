@@ -21,8 +21,7 @@
 				"version": "1.4.0"
 			},
 			{
-				"name": "hxvlc",
-				"version": "2.2.5"
+				"name": "hxvlc"
 			},
 			{
 				"name": "hscript-iris",
@@ -31,7 +30,7 @@
 			{
 				"name": "linc_luajit",
 				"link": "https://github.com/superpowers04/linc_luajit",
-				"branch": "1906c4a96f6bb6df66562b3f24c62f4c5bba14a7"
+				"branch": "master"
 			},
 			{
 				"name": "lime",
@@ -52,12 +51,11 @@
 			},
 			{
 				"name": "hxcpp",
-				"link": "https://github.com/MaysLastPlays-Stuff/hxcpp-h",
+				"link": "https://github.com/HaxeFoundation/hxcpp",
 				"branch": "master"
 			},
 			{
-				"name": "hscript",
-				"version": "2.6.0"
+				"name": "hscript"
 			},
 			{
 				"name": "hxcpp-debug-server",
@@ -65,7 +63,8 @@
 			},
 			{
 				"name": "away3d",
-				"version": "5.0.9"
+				"link": "https://github.com/openfl/away3d",
+				"branch": "master"
 			}
 		]
 	}
