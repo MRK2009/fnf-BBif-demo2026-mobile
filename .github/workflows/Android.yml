@@ -21,6 +21,7 @@ jobs:
          haxelib install hxpkg --global
          haxelib run hxpkg setup --global
          haxelib run hxpkg install
+         haxelib run lime rebuild hxcpp
 
       - name: Restore Cache
         uses: actions/cache@v4
