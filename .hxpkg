@@ -52,7 +52,7 @@
 			{
 				"name": "hxcpp",
 				"link": "https://github.com/HaxeFoundation/hxcpp",
-				"branch": "4.3.45"
+				"branch": "8268ef2d518b1e7c8e8494114d0bdf6b5bc4147d"
 			},
 			{
 				"name": "hscript"
